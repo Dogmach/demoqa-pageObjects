@@ -1,13 +1,11 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 
-public class RegistrationFormTests {
+public class RegistrationFormTests extends TestBase{
     RegistrationPage registrationPage = new RegistrationPage();
     String firstName = "Oleg";
     String lastName = "Gazmanov";
@@ -24,11 +22,6 @@ public class RegistrationFormTests {
     String state = "Haryana";
     String city = "Karnal";
 
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
-    }
 
     @Test
     void successFillTests() {
