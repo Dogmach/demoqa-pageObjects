@@ -15,6 +15,7 @@ public class RegistrationPage {
     private SubjectsComponent subjectsComponent = new SubjectsComponent();
     private StateAndCityComponent stateAndCityComponent = new StateAndCityComponent();
     private CheckFormComponent checkFormComponent = new CheckFormComponent();
+    private ClickToGender clickToGender = new ClickToGender();
 
 
     //locators
@@ -24,7 +25,7 @@ public class RegistrationPage {
     String firstNameLocator = "#firstName";
     String lastNameLocator = "#lastName";
     String userEmailLocator = "#userEmail";
-    String genderLocator = ".custom-control-label";
+    String genderLocator = "#genterWrapper";
     String mobileLocator = "#userNumber";
     String subjectLocator = "#subjectsInput";
     String addressLocator = "#currentAddress";
@@ -56,7 +57,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setGenderInput() {
-        clickComponent.clickMethod(genderLocator);
+        clickToGender.clickToGenderMethod(genderLocator,"Other");
         return this;
     }
 

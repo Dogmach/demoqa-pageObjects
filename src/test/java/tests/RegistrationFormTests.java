@@ -1,26 +1,33 @@
 package tests;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
+import java.util.Locale;
+
 import static com.codeborne.selenide.Selenide.open;
 
-public class RegistrationFormTests extends TestBase{
+public class RegistrationFormTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
-    String firstName = "Oleg";
-    String lastName = "Gazmanov";
-    String userEmail = "gazmanov@oleg.ru";
-    String userNumber = "8005553535";
-    String subjectsInput1 = "English";
-    String subjectsInput2 = "Maths";
-    String subjectsInput3 = "History";
-    String hobbie1 = "Sports";
-    String hobbie2 = "Reading";
-    String hobbie3 = "Music";
-    String images = "1.png";
-    String currentAddress = "Test adress";
-    String state = "Haryana";
-    String city = "Karnal";
+
+
+    Faker faker = new Faker();
+    String firstName = faker.name().firstName(),
+            lastName = faker.name().lastName(),
+            currentAddress = faker.address().fullAddress(),
+            userNumber = faker.phoneNumber().subscriberNumber(10),
+            email = faker.internet().emailAddress(),
+            images = "1.png",
+            state = "NCR",
+            city = "Noida",
+            subjectsInput1 = "Maths",
+            subjectsInput2 = "Arts",
+            subjectsInput3 = "Civics",
+            hobbie1 = "Sports",
+            hobbie2 = "Reading",
+            hobbie3 = "Music",
+            gender = "Other";
 
 
     @Test
@@ -29,7 +36,7 @@ public class RegistrationFormTests extends TestBase{
 
         registrationPage.setFirstNameInput(firstName)
                 .setLastNameInput(lastName)
-                .setUserEmailInput(userEmail)
+                .setUserEmailInput(email)
                 .setGenderInput()
                 .setMobileUserNumberInput(userNumber)
                 .setDateOfBirthInput("22", "July", "1951")
@@ -43,15 +50,15 @@ public class RegistrationFormTests extends TestBase{
 
         /* Проверка формы */
 
-        registrationPage.checkForm("Student Name", "Oleg Gazmanov")
-                .checkForm("Student Email", "gazmanov@oleg.ru")
-                .checkForm("Gender", "Male")
-                .checkForm("Mobile", "8005553535")
+        registrationPage.checkForm("Student Name", firstName + " " + lastName)
+                .checkForm("Student Email", email)
+                .checkForm("Gender", gender)
+                .checkForm("Mobile", userNumber)
                 .checkForm("Date of Birth", "22 July,1951")
-                .checkForm("Subjects", "English" + ", " + "Maths" + ", " + "History")
-                .checkForm("Hobbies", "Sports" + ", " + "Reading" + ", " + "Music")
-                .checkForm("Picture", "1.png")
-                .checkForm("Address", "Test adress")
-                .checkForm("State and City", "Haryana" + " " + "Karnal");
+                .checkForm("Subjects", subjectsInput1 + ", " + subjectsInput2 + ", " + subjectsInput3)
+                .checkForm("Hobbies", hobbie1 + ", " + hobbie2 + ", " + hobbie3)
+                .checkForm("Picture", images)
+                .checkForm("Address", currentAddress)
+                .checkForm("State and City", state + " " + city);
     }
 }
