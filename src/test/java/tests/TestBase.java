@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static io.qameta.allure.Allure.step;
+import static properties.SystemProperties.*;
 
 public class TestBase {
 
@@ -20,13 +21,11 @@ public class TestBase {
 
         step("Настраиваем тестируемую страницу", () -> {
 
-            String user = System.getProperty("user");
-            String password = System.getProperty("password");
-
             Configuration.baseUrl = "https://demoqa.com";
-            Configuration.browser = System.getProperty("browser", "chrome");
-            Configuration.browserSize = System.getProperty("browser_size", "1920x1520");
-            Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+            Configuration.browserSize = browserSize;
+            Configuration.remote = "https://" + remoteUser + ":" + remotePassword + "@" + remoteBrowser;
+            Configuration.browser = browser;
+            Configuration.browserVersion = browserVersion;
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("enableVNC", true);
